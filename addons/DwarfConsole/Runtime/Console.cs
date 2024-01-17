@@ -1,17 +1,30 @@
 using Godot;
 using System.Collections.Generic;
 
-// TODO: changing font size
-
 namespace DwarfConsole
 {
+    /// <summary>
+    /// You can call console methods and change its settings from here.
+    /// This class manages the UI of console and automatically registers nodes that have commands.
+    /// <para>
+    /// In order for a Node to be registered it must either be inside the scene when the console
+    /// is opened for the first time or loaded through Autoload. When the scene is changed 
+    /// previously registered Nodes are unregistered. When a new node enters the scene
+    /// the console will attempt to register it.
+    /// </para>
+    /// <strong>Note:</strong> Do not attempt to move this Node or free it as it will result in unexpected behaviour.
+    /// </summary>
     public partial class Console : Node
     {
+        /// <summary>
+        /// Default settings of Console eg. Colors, Font Size
+        /// </summary>
         public struct Settings
         {
             private Color normalColor = new Color("white");
             private Color warningColor = new Color("#ebcb2f");
             private Color errorColor = new Color("#eb4b2f");
+            private int fontSize = 16;
 
             public Color NormalColor
             {
@@ -37,12 +50,20 @@ namespace DwarfConsole
                 }
             }
 
+            public int FontSize
+            {
+                get => (int)ProjectSettings.GetSetting("DwarfConsole/Defaults/FontSize", fontSize);
+            }
+
             public Settings() {}
         }
 
 
         public enum LogType { Normal, Warning, Error }
 
+        /// <summary>
+        /// Console settings
+        /// </summary>
         public static readonly Settings settings = new Settings();
         public static readonly CommandExecutor CommandExecutor = new CommandExecutor();
         
@@ -56,12 +77,19 @@ namespace DwarfConsole
         private static int maxMessages = 1000;
         private static bool isActive = false;
 
+        /// <summary>
+        /// Gets or sets the message limit of console beyond which the old
+        /// messages will get deleted
+        /// </summary>
         public static int MaxMessages
         {
             get => maxMessages;
             set => maxMessages = Mathf.Max(maxMessages, 100);
         }
 
+        /// <summary>
+        /// If true the console is currently active
+        /// </summary>
         public static bool IsActive
         {
             get => isActive;
@@ -70,6 +98,8 @@ namespace DwarfConsole
         private Console()
         {
             CommandExecutor.RegisterCommand("clear", new Command(this, typeof(Console).GetMethod(nameof(ClearConsole)), "Clears the console."));
+            CommandExecutor.RegisterCommand("font", new Command(this, typeof(Console).GetMethod(nameof(FontSize)), "Sets the font size of messages."));
+            CommandExecutor.RegisterCommand("color", new Command(this, typeof(Console).GetMethod(nameof(TextColor)), "Sets the color of messages. Previous messsages don't change."));
         }
 
         private void Init(Node root)
@@ -153,8 +183,14 @@ namespace DwarfConsole
             }
         }
 
+        private int lastFont;
         public override void _Process(double delta)
         {
+            if (lastFont != settings.FontSize)
+            {
+                ChangeFontSize();
+            }
+
             if (Input.IsActionJustPressed("ui_up") && isActive)
             {
                 historyPreviewIndex = Mathf.Max(0, historyPreviewIndex - 1);
@@ -237,6 +273,30 @@ namespace DwarfConsole
             prevMaxValue = scrollBar.MaxValue;
             if (shouldScroll)
                 scrollBar.Value = scrollBar.MaxValue;
+        }
+
+        private void ChangeFontSize()
+        {
+            Theme theme = ResourceLoader.Load<Theme>("res://addons/DwarfConsole/Prefabs/ConsoleDefault.tres");
+            theme.SetFontSize("font_size", "LineEdit", settings.FontSize);
+        }
+
+        public void FontSize(int size)
+        {
+            size = Mathf.Max(4, size);
+            ProjectSettings.SetSetting("DwarfConsole/Defaults/FontSize", size);
+        }
+
+        public void TextColor(string color)
+        {
+            try
+            {
+                ProjectSettings.SetSetting("DwarfConsole/Defaults/NormalColor", new Color(color));
+            }
+            catch (System.Exception)
+            {
+                Log($"Invalid color code {color}", LogType.Error);
+            }
         }
 
         public void ClearConsole()

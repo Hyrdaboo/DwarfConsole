@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://be3ui4tvmftqm"]
+[gd_scene load_steps=3 format=3 uid="uid://be3ui4tvmftqm"]
+
+[ext_resource type="Theme" uid="uid://dci21jnxvypw0" path="res://addons/DwarfConsole/Prefabs/ConsoleDefault.tres" id="1_vtfo6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3h58q"]
 
@@ -14,9 +16,11 @@ theme_override_constants/margin_bottom = -5
 
 [node name="Content" type="LineEdit" parent="MarginContainer"]
 layout_mode = 2
+theme = ExtResource("1_vtfo6")
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = -1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3h58q")
+text = "salam"
 editable = false
 expand_to_text_length = true
 flat = true

@@ -11,6 +11,7 @@ public partial class Plugin : EditorPlugin
 		TrySetSetting("DwarfConsole/Defaults/NormalColor", new Color("white"), Variant.Type.Color, "Text color used for normal messages");
 		TrySetSetting("DwarfConsole/Defaults/WarningColor", new Color("#ebcb2f"), Variant.Type.Color, "Text color used for warning messages");
 		TrySetSetting("DwarfConsole/Defaults/ErrorColor", new Color("#eb4b2f"), Variant.Type.Color, "Text color used for error messages");
+		TrySetSetting("DwarfConsole/Defaults/FontSize", 16, Variant.Type.Int, "Default font size of messages");
 
 		AddAutoloadSingleton("ConsoleInitializer", "res://addons/DwarfConsole/Runtime/ConsoleInitializer.cs");
     }
