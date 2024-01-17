@@ -101,4 +101,10 @@ public partial class PlayerController : CharacterBody3D
 		Speed = Mathf.Abs(speed);
 		Console.Log($"Set player speed to: {Speed}");
 	}
+
+	[ConsoleCommand("noclip", "turns off wall collisions")]
+	public void NoClip(bool value)
+	{
+		SetCollisionMaskValue(1, !value);
+	}
 }
