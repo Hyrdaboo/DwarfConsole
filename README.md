@@ -1,5 +1,9 @@
-<h1 align="center">DwarfConsole</h1>
-<br>
+<h1 align="center">
+  Dwarf Impulse
+  <br>
+</h1>
+
+<h4 align="center">A C# based in-game console for Godot.</h4>
 
 <img src="https://github.com/Hyrdaboo/DwarfConsole/assets/67780454/c5b779b4-0ae9-4d3b-8355-483e6286f926" width=100%>
 
