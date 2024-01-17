@@ -1,5 +1,5 @@
 <h1 align="center">
-  Dwarf Impulse
+  Dwarf Console
   <br>
 </h1>
 
