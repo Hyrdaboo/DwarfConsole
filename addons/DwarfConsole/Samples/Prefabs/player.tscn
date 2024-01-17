@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://coe3gpaiole8f"]
+
+[ext_resource type="Script" path="res://addons/DwarfConsole/Samples/Scripts/PlayerController.cs" id="1_i1ey1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_egu5n"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_i1ey1")
+camera = NodePath("Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_egu5n")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.753787, 0)

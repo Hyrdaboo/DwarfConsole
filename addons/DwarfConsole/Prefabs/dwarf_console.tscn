@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpnivrf6tlp08"]
+
+[ext_resource type="Script" path="res://addons/DwarfConsole/Runtime/Console.cs" id="1_wok7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cic8s"]
+bg_color = Color(0.1, 0.1, 0.1, 0.803922)
+
+[node name="DwarfConsole" type="Node2D"]
+script = ExtResource("1_wok7p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_cic8s")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+placeholder_text = "Enter a command..."
+clear_button_enabled = true
+caret_blink = true
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "DwarfConsole"
+horizontal_alignment = 1

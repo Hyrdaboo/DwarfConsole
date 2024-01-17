@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://be3ui4tvmftqm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3h58q"]
+
+[node name="Message" type="HBoxContainer"]
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = -5
+
+[node name="Content" type="LineEdit" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = -1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3h58q")
+editable = false
+expand_to_text_length = true
+flat = true
+
+[node name="Counter" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+text = "x0"
