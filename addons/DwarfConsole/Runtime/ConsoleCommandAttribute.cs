@@ -8,7 +8,7 @@ namespace DwarfConsole
         public readonly string name;
         public readonly string description;
 
-        public ConsoleCommandAttribute(string name, string description = "")
+        public ConsoleCommandAttribute(string name, string description = "No Description.")
         {
             this.name = name;
             this.description = description;

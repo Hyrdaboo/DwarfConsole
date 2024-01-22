@@ -148,7 +148,7 @@ namespace DwarfConsole
             {
                 if (node != this)
                 {
-                    CommandExecutor.TryRegisterNode(node);
+                    AutoRegisterConsoleCommands(node);
                 }
             };
 
@@ -156,12 +156,12 @@ namespace DwarfConsole
             {
                 if (node != this)
                 {
-                    CommandExecutor.TryUnregisterNode(node);
+                    AutoRegisterConsoleCommands(node, true);
                 }
             };
         }
 
-        private void AutoRegisterConsoleCommands(Node root)
+        private void AutoRegisterConsoleCommands(Node root, bool unregister = false)
         {
             if (!IsInstanceValid(root))
                 return;
@@ -173,7 +173,10 @@ namespace DwarfConsole
             {
                 Node currentNode = nodesQueue.Dequeue();
 
-                CommandExecutor.TryRegisterNode(currentNode);
+                if (unregister)
+                    CommandExecutor.TryUnregisterNode(currentNode);
+                else 
+                    CommandExecutor.TryRegisterNode(currentNode);
 
                 foreach (Node child in currentNode.GetChildren())
                 {
